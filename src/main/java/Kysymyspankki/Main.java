@@ -17,10 +17,12 @@ public class Main {
         if (System.getenv("PORT") != null) {
             Spark.port(Integer.valueOf(System.getenv("PORT")));
         }
+        
+
         Spark.get("/", (req, res) -> {
             List<Kysymys> kysymykset = new ArrayList<>();
             // Avataan yhteys tietokantaan
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:kysymykset.db");
+            Connection conn = getConnection();
             // Tehdään kysely
             PreparedStatement stmt = conn.prepareStatement("SELECT id, kurssi, aihe, teksti FROM Kysymys");
             ResultSet tulos = stmt.executeQuery();
@@ -38,7 +40,7 @@ public class Main {
 
         Spark.post("/create", (req, res) -> {
             // Avataan yhteys tietokantaan
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:kysymykset.db");
+            Connection conn = getConnection();
             // Tehdään kysely
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Kysymys (kurssi, aihe, teksti) VALUES (?, ?, ?)");
             stmt.setString(1, req.queryParams("kysymys"));
@@ -54,7 +56,7 @@ public class Main {
         
        Spark.post("/uusi", (req, res) -> {
             // Avataan yhteys tietokantaan
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:kysymykset.db");
+            Connection conn = getConnection();
             // Tehdään kysely
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastaus (vastausteksti, oikein, id) VALUES (?, ?, ?)");
             stmt.setString(1, req.queryParams("vastausteksti"));
@@ -72,7 +74,7 @@ public class Main {
         Spark.get("~/kysymykset/:id", (req, res) -> {            
             List<Kysymys> vastaukset = new ArrayList<>();
             // Avataan yhteys tietokantaan
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:kysymykset.db");
+            Connection conn = getConnection();
             // Tehdään kysely
             PreparedStatement statement = conn.prepareStatement("SELECT id, kurssi, aihe, teksti FROM Kysymys WHERE id = (?)");
             statement.setString(1, req.queryParams(":id"));
@@ -93,7 +95,7 @@ public class Main {
         
         Spark.post("/poista/:vastausid", (req, res) -> {
             // Avataan yhteys tietokantaan
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:kysymykset.db");
+            Connection conn = getConnection();
             // tee kysely
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM Vastaus WHERE vastausid = ?");
             stmt.setString(1, req.params(":vastausid"));
@@ -106,7 +108,7 @@ public class Main {
         
         Spark.post("/delete/:id:", (req, res) -> {
             // Avataan yhteys tietokantaan
-            Connection conn = DriverManager.getConnection("jdbc:sqlite:kysymykset.db");
+            Connection conn = getConnection();
             // tee kysely
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM Kysymys WHERE id = ?");
             stmt.setString(1, req.params(":id"));
@@ -117,5 +119,13 @@ public class Main {
             return "";
         });
     }
+    
+    public static Connection getConnection() throws Exception {
+        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+            if (dbUrl != null && dbUrl.length() > 0) {
+                return DriverManager.getConnection(dbUrl);
+            }
+            return DriverManager.getConnection("jdbc:sqlite:kysymykset.db");
+        }
 
 }
