@@ -50,7 +50,7 @@
        <artifactId>postgresql</artifactId>
     <version>42.2.1</version>
 </dependency>
-      
+
   </dependencies>
 
   <build>
@@ -64,6 +64,13 @@
           <target>1.8</target>
           <optimize>true</optimize>
           <debug>true</debug>
+          <archive>
+                <manifest>
+                  <addClasspath>true</addClasspath>
+                  <classpathPrefix>lib/</classpathPrefix>
+                  <mainClass>Kysymyspankki.Main</mainClass>
+                </manifest>
+          </archive>
         </configuration>
       </plugin>
       <plugin>
