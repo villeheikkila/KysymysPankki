@@ -20,8 +20,6 @@
  
                 
                 <a th:href="@{~/kysymykset/{id}(id=${kurssi.id})}" th:text="${kurssi.teksti}">teksi</a>
-<!--                <span th:text="${kurssi.teksti}">teksti</span>
-                </a>-->
                 <form th:action="@{~/delete/{id}(id=${kurssi.id})}" method="POST">
                     <input type="submit" value="Poista"/>
                 </form>
@@ -45,7 +43,7 @@
             Vastausteksti: <br />
             <input type="text" name="vastausteksti"/> <br />
             id: <br />
-            <input type="text" name="id"/> <br />
+            <input type="text" name="vastausid"/> <br />
             Oikein: <br />
             <input type="checkbox" name="active" th:checked="oikein" />
             <button type="submit">Luo</button>

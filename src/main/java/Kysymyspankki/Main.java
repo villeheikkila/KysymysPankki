@@ -106,12 +106,12 @@ public class Main {
             return "";
         });
         
-        Spark.post("/delete/:id:", (req, res) -> {
+        Spark.post("/delete/:id", (req, res) -> {
             // Avataan yhteys tietokantaan
             Connection conn = getConnection();
             // tee kysely
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM Kysymys WHERE id = ?");
-            stmt.setString(1, req.params(":id"));
+            stmt.setInt(1, Integer.parseInt(req.params(":id")));
             stmt.executeUpdate();
             // Suljetaan yhteys tietokantaan
             conn.close();
