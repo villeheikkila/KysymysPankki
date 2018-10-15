@@ -1,1 +1,1 @@
-web: java -jar target/KysymysPankki-1.0-SNAPSHOT.jar
+web: java -jar target/KysymysPankki-1.0-SNAPSHOT.jar Kysymyspankki.Main
