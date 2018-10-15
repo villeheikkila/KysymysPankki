@@ -1,1 +1,1 @@
-web: java -jar target/KysymysPankki-1.0-SNAPSHOT.jar Kysymyspankki.Main
+web:    java -cp target/classes:target/dependency/* Kysymyspankki.Main
