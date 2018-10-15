@@ -95,19 +95,22 @@ public class Main {
         }, new ThymeleafTemplateEngine());
 
         Spark.post("/poista/:vastausid", (req, res) -> {
+            List<Integer> id = new ArrayList<>();
             // Avataan yhteys tietokantaan
             Connection conn = getConnection();
             // tee kysely
             PreparedStatement statement = conn.prepareStatement("SELECT id FROM Vastaus WHERE vastausid = ?");
             statement.setInt(1, Integer.parseInt(req.params(":vastausid")));
             ResultSet id_raw = statement.executeQuery();
-            int id = id_raw.getInt("id");
+            while (id_raw.next()) {
+                id.add(id_raw.getInt("id"));
+            }
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM Vastaus WHERE vastausid = ?");
             stmt.setInt(1, Integer.parseInt(req.params(":vastausid")));
             stmt.executeUpdate();
             // Suljetaan yhteys tietokantaan
             conn.close();
-            res.redirect("/kysymykset/" + id);
+            res.redirect("/kysymykset/" + id.get(0));
             return "";
         });
         
