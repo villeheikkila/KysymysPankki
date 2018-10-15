@@ -1,5 +1,5 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="fi-FI" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <title>Otsikko</title>
@@ -13,14 +13,13 @@
         <ul>
             <li th:each="vast : ${vastaukset}">
                 <span th:text="${vast.vastausteksti}">vastausteksti</span>
-                <form th:action="@{~/poista/{id}(id=${vast.vastausid})}" method="POST">
-                    <input type="submit" value="Poista"/>
-                </form>
+                <b th:text="${vast.oikein} ? 'Oikein!' : 'Väärin!'"></b>
+                <form th:action="@{~/poista/{id}(id=${vast.vastausid})}" method="POST"><input type="submit" value="Poista"/></form>
             </li>
            
         </ul>
         
-
+        <h2>Luo uusi vastausvaihtoehto</h2>
             <form th:action="@{~/uusi/{id}(id=${vastaus[0].id})}" method="POST">
             Vastausteksti: <br />
             <input type="text" name="vastausteksti"/> <br /> 

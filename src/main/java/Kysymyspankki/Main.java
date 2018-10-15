@@ -42,11 +42,13 @@ public class Main {
             // Avataan yhteys tietokantaan
             Connection conn = getConnection();
             // Tehdään kysely
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Kysymys (kurssi, aihe, teksti) VALUES (?, ?, ?)");
-            stmt.setString(1, req.queryParams("kysymys"));
-            stmt.setString(2, req.queryParams("aihe"));
-            stmt.setString(3, req.queryParams("teksti"));
-            stmt.executeUpdate();
+            if ((req.queryParams("kysymys").length() != 0) && (req.queryParams("aihe").length() != 0) && (req.queryParams("teksti").length() != 0)) {
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO Kysymys (kurssi, aihe, teksti) VALUES (?, ?, ?)");
+                stmt.setString(1, req.queryParams("kysymys"));
+                stmt.setString(2, req.queryParams("aihe"));
+                stmt.setString(3, req.queryParams("teksti"));
+                stmt.executeUpdate();
+            }
             // Suljetaan yhteys tietokantaan
             conn.close();
 
@@ -58,12 +60,16 @@ public class Main {
             // Avataan yhteys tietokantaan
             Connection conn = getConnection();
             // Tehdään kysely
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastaus (vastausteksti, oikein, id) VALUES (?, ?, ?)");
-            stmt.setString(1, req.queryParams("vastausteksti"));
-            stmt.setBoolean(2, true);
-            stmt.setInt(3, Integer.parseInt(req.params(":id")));
+            String vastaus = req.queryParams("vastausteksti");
+            if (vastaus.length() != 0) {
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastaus (vastausteksti, oikein, id) VALUES (?, ?, ?)");
+                stmt.setString(1, req.queryParams("vastausteksti"));
+                stmt.setBoolean(2, true);
+                stmt.setInt(3, Integer.parseInt(req.params(":id")));
+                stmt.executeUpdate();
+            }
+
             int osote = Integer.parseInt(req.params(":id"));
-            stmt.executeUpdate();
             // Suljetaan yhteys tietokantaan
             conn.close();
 
