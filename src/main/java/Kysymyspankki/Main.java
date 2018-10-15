@@ -60,20 +60,19 @@ public class Main {
             // Tehdään kysely
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastaus (vastausteksti, oikein, id) VALUES (?, ?, ?)");
             stmt.setString(1, req.queryParams("vastausteksti"));
-//            stmt.setBoolean(2, true);
+            stmt.setBoolean(2, true);
             stmt.setInt(3, Integer.parseInt(req.params(":id")));
-            int osote = Integer.parseInt(req.params(":id"));
+//            int osote = Integer.parseInt(req.params(":id"));
             stmt.executeUpdate();
             // Suljetaan yhteys tietokantaan
             conn.close();
 
-            res.redirect("/kysymykset/" + osote);
+            res.redirect("/kysymykset/");
             return "";
         });
         
         Spark.get("/kysymykset/:id", (req, res) -> {
             List<Vastaus> vastaukset = new ArrayList<>();
-            List<String> vastuu = new ArrayList<>();
             Connection conn = getConnection();
             PreparedStatement statement = conn.prepareStatement("SELECT id, kurssi, aihe, teksti FROM Kysymys WHERE id = (?)");
             statement.setInt(1, Integer.parseInt(req.params(":id")));
