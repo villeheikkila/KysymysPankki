@@ -64,13 +64,6 @@
           <target>1.8</target>
           <optimize>true</optimize>
           <debug>true</debug>
-          <archive>
-                <manifest>
-                  <addClasspath>true</addClasspath>
-                  <classpathPrefix>lib/</classpathPrefix>
-                  <mainClass>Kysymyspankki.Main</mainClass>
-                </manifest>
-          </archive>
         </configuration>
       </plugin>
       <plugin>
@@ -89,5 +82,28 @@
       </plugin>
     </plugins>
   </build>
+  
+  <plugin>
+    <artifactId>maven-assembly-plugin</artifactId>
+    <executions>
+      <execution>
+        <phase>package</phase>
+        <goals>
+          <goal>single</goal>
+        </goals>
+      </execution>
+    </executions>
+    <configuration>
+      <archive>
+        <manifest>
+          <addClasspath>true</addClasspath>
+          <mainClass>Kysymyspankki.Main</mainClass>
+        </manifest>
+      </archive>
+      <descriptorRefs>
+        <descriptorRef>jar-with-dependencies</descriptorRef>
+      </descriptorRefs>
+    </configuration>
+  </plugin>
     
 </project>
