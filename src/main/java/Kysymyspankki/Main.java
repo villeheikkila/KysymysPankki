@@ -62,23 +62,26 @@ public class Main {
             stmt.setString(1, req.queryParams("vastausteksti"));
             stmt.setBoolean(2, true);
             stmt.setInt(3, Integer.parseInt(req.params(":id")));
-//            int osote = Integer.parseInt(req.params(":id"));
+            int osote = Integer.parseInt(req.params(":id"));
             stmt.executeUpdate();
             // Suljetaan yhteys tietokantaan
             conn.close();
 
-            res.redirect("/kysymykset/");
+            res.redirect("/kysymykset/" + osote);
             return "";
         });
         
         Spark.get("/kysymykset/:id", (req, res) -> {
             List<Vastaus> vastaukset = new ArrayList<>();
             Connection conn = getConnection();
+            int id = Integer.parseInt(req.params(":id"));
             PreparedStatement statement = conn.prepareStatement("SELECT id, kurssi, aihe, teksti FROM Kysymys WHERE id = (?)");
-            statement.setInt(1, Integer.parseInt(req.params(":id")));
+//            statement.setInt(1, Integer.parseInt(req.params(":id")));
+            statement.setInt(1, id);
             ResultSet tulokset = statement.executeQuery();
             PreparedStatement stmt = conn.prepareStatement("SELECT vastausid, vastausteksti, oikein FROM Vastaus WHERE id = (?)");
-            stmt.setInt(1, Integer.parseInt(req.params(":id")));
+//            stmt.setInt(1, Integer.parseInt(req.params(":id")));
+            stmt.setInt(1, id);
             ResultSet vastaus = stmt.executeQuery();
             Kysymys muisti = new Kysymys(tulokset.getInt("id"), tulokset.getString("kurssi"), tulokset.getString("aihe"), tulokset.getString("teksti"));
             while (vastaus.next()) {
