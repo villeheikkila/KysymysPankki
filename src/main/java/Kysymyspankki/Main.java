@@ -81,9 +81,9 @@ public class Main {
             stmt.setInt(1, Integer.parseInt(req.params(":id")));
             ResultSet vastaus = stmt.executeQuery();
             Kysymys muisti = new Kysymys(tulokset.getInt("id"), tulokset.getString("kurssi"), tulokset.getString("aihe"), tulokset.getString("teksti"));
-//            while (vastaus.next()) {
-//                vastaukset.add(new Vastaus(vastaus.getInt("vastausid"), vastaus.getString("vastausteksti"), vastaus.getBoolean("oikein")));
-//            }
+            while (vastaus.next()) {
+                vastaukset.add(new Vastaus(vastaus.getInt("vastausid"), vastaus.getString("vastausteksti"), vastaus.getBoolean("oikein")));
+            }
             HashMap map = new HashMap<>();
             map.put("vastaus", muisti);
             map.put("vastaukset", vastaukset);
