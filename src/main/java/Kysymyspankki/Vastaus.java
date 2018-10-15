@@ -10,16 +10,22 @@ package Kysymyspankki;
  * @author Ville
  */
 public class Vastaus {
-    private String vastusteksti;
+    private int vastausid;
+    private String vastausteksti;
     private boolean oikein;
 
-    public Vastaus(String vastusteksti, boolean oikein) {
-        this.vastusteksti = vastusteksti;
+    public Vastaus(int vastaus, String vastusteksti, boolean oikein) {
+        this.vastausteksti = vastusteksti;
         this.oikein = oikein;
+        this.vastausid = vastaus;
     }
 
-    public String getVastusteksti() {
-        return vastusteksti;
+    public int getVastausid() {
+        return vastausid;
+    }
+
+    public String getVastausteksti() {
+        return vastausteksti;
     }
 
     public boolean isOikein() {

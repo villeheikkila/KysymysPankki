@@ -1,42 +1,39 @@
-<!DOCTYPE html>
-<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
     <head>
-        <title>Kysymykset</title>
+        <title>Otsikko</title>
+        <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>AIHE</h1>
-        
-        
 
-        <ul style="list-style-type:none" >
-            <li th:each="kurssi : ${lista}">
-                <h2>Kurssi:
-                <span th:text="${kurssi.kurssi}">kurssi</span>
-                </h2>
-                <h3>Aihe:
-                <span th:text="${kurssi.aihe}">aihe</span>
-                </h3>
-                
-                <a th:href="@{~/kysymykset/{kurssi}(kurssi=${kurssi.kurssi})}" th:text="${kurssi.teksti}">teksi</a>
-<!--                <span th:text="${kurssi.teksti}">teksti</span>
-                </a>-->
-                <form th:action="@{~/delete/{kurssi}(kurssi=${kurssi.kurssi})}" method="POST">
+        <h1 th:text="${vastaus.aihe}"! /> Kurssi:
+        <span th:text="${vastaus.kurssi}" />
+
+        
+        <ul>
+            <li th:each="vast : ${vastaukset}">
+                <span th:text="${vast.vastausteksti}">vastausteksti</span>
+                <form th:action="@{~/poista/{id}(id=${vast.vastausid})}" method="POST">
                     <input type="submit" value="Poista"/>
                 </form>
             </li>
            
         </ul>
+        
 
-        <h2>Luo uusi kysymys</h2>
-        <form action="/create" method="POST">
+            <form th:action="@{~/uusi/{id}(id=${vastaus.id})}" method="POST">
             Vastausteksti: <br />
-            <input type="text" name="kysymys"/> <br />
-            Oikein: <br />
-            <input type="checkbox" name="Oikein"/> <br />
-            <button type="submit">Luo</button>
+            <input type="text" name="vastausteksti"/> <br /> 
+            Oikein: 
+            <input type="checkbox" name="active" th:checked="oikein" /><br />
+                    <input type="submit" value="Luo"/>
+            </form>
          </form>
+         
+        <a href="/">Takaisin listaukseen</a>
+
 
     </body>
-
 </html>
