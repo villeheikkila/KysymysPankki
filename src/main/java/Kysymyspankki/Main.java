@@ -60,10 +60,9 @@ public class Main {
             // Tehdään kysely
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastaus (vastausteksti, oikein, id) VALUES (?, ?, ?)");
             stmt.setString(1, req.queryParams("vastausteksti"));
-            stmt.setBoolean(2, true);
+//            stmt.setBoolean(2, true);
             stmt.setInt(3, Integer.parseInt(req.params(":id")));
             int osote = Integer.parseInt(req.params(":id"));
-            System.out.println(req.params("active"));
             stmt.executeUpdate();
             // Suljetaan yhteys tietokantaan
             conn.close();
