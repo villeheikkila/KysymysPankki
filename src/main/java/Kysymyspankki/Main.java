@@ -75,13 +75,13 @@ public class Main {
             List<Vastaus> vastaukset = new ArrayList<>();
             Connection conn = getConnection();
             int id = Integer.parseInt(req.params(":id"));
-            PreparedStatement statement = conn.prepareStatement("SELECT id, kurssi, aihe, teksti FROM Kysymys WHERE id = (?)");
+            PreparedStatement statement = conn.prepareStatement("SELECT id, kurssi, aihe, teksti FROM Kysymys WHERE id = 1");
 //            statement.setInt(1, Integer.parseInt(req.params(":id")));
-            statement.setInt(1, id);
+//            statement.setInt(1, id);
             ResultSet tulokset = statement.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement("SELECT vastausid, vastausteksti, oikein FROM Vastaus WHERE id = (?)");
+            PreparedStatement stmt = conn.prepareStatement("SELECT vastausid, vastausteksti, oikein FROM Vastaus WHERE id = 1");
 //            stmt.setInt(1, Integer.parseInt(req.params(":id")));
-            stmt.setInt(1, id);
+//            stmt.setInt(1, id);
             ResultSet vastaus = stmt.executeQuery();
             Kysymys muisti = new Kysymys(tulokset.getInt("id"), tulokset.getString("kurssi"), tulokset.getString("aihe"), tulokset.getString("teksti"));
             while (vastaus.next()) {
