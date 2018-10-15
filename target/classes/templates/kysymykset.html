@@ -7,10 +7,8 @@
     </head>
 
     <body>
-
-        <h1 th:text="${vastaus.aihe}"! /> Kurssi:
-        <span th:text="${vastaus.kurssi}" />
-
+        <h1 th:text="${vastaus[0].aihe}"! /> Kurssi:
+        <span th:text="${vastaus[0].kurssi}" />
         
         <ul>
             <li th:each="vast : ${vastaukset}">
@@ -23,14 +21,13 @@
         </ul>
         
 
-            <form th:action="@{~/uusi/{id}(id=${vastaus.id})}" method="POST">
+            <form th:action="@{~/uusi/{id}(id=${vastaus[0].id})}" method="POST">
             Vastausteksti: <br />
             <input type="text" name="vastausteksti"/> <br /> 
             Oikein: 
             <input type="checkbox" name="active" th:checked="oikein" /><br />
                     <input type="submit" value="Luo"/>
             </form>
-         </form>
          
         <a href="/">Takaisin listaukseen</a>
 

@@ -73,6 +73,7 @@ public class Main {
         
         Spark.get("/kysymykset/:id", (req, res) -> {
             List<Vastaus> vastaukset = new ArrayList<>();
+            List<Kysymys> muisti = new ArrayList<>();
             Connection conn = getConnection();
             PreparedStatement statement = conn.prepareStatement("SELECT id, kurssi, aihe, teksti FROM Kysymys WHERE id = (?)");
             statement.setInt(1, Integer.parseInt(req.params(":id")));
@@ -80,7 +81,9 @@ public class Main {
             PreparedStatement stmt = conn.prepareStatement("SELECT vastausid, vastausteksti, oikein FROM Vastaus WHERE id = (?)");
             stmt.setInt(1, Integer.parseInt(req.params(":id")));
             ResultSet vastaus = stmt.executeQuery();
-            Kysymys muisti = new Kysymys(tulokset.getInt("id"), tulokset.getString("kurssi"), tulokset.getString("aihe"), tulokset.getString("teksti"));
+            while (tulokset.next()) {
+                muisti.add(new Kysymys(tulokset.getInt("id"), tulokset.getString("kurssi"), tulokset.getString("aihe"), tulokset.getString("teksti")));                            
+            }
             while (vastaus.next()) {
                 vastaukset.add(new Vastaus(vastaus.getInt("vastausid"), vastaus.getString("vastausteksti"), vastaus.getBoolean("oikein")));
             }
