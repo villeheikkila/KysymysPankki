@@ -74,19 +74,16 @@ public class Main {
         Spark.get("/kysymykset/:id", (req, res) -> {
             List<Vastaus> vastaukset = new ArrayList<>();
             Connection conn = getConnection();
-            int id = Integer.parseInt(req.params(":id"));
-            PreparedStatement statement = conn.prepareStatement("SELECT id, kurssi, aihe, teksti FROM Kysymys WHERE id = 1");
-//            statement.setInt(1, Integer.parseInt(req.params(":id")));
-//            statement.setInt(1, id);
+            PreparedStatement statement = conn.prepareStatement("SELECT id, kurssi, aihe, teksti FROM Kysymys WHERE id = (?)");
+            statement.setInt(1, Integer.parseInt(req.params(":id")));
             ResultSet tulokset = statement.executeQuery();
-            PreparedStatement stmt = conn.prepareStatement("SELECT vastausid, vastausteksti, oikein FROM Vastaus WHERE id = 1");
-//            stmt.setInt(1, Integer.parseInt(req.params(":id")));
-//            stmt.setInt(1, id);
+            PreparedStatement stmt = conn.prepareStatement("SELECT vastausid, vastausteksti, oikein FROM Vastaus WHERE id = (?)");
+            stmt.setInt(1, Integer.parseInt(req.params(":id")));
             ResultSet vastaus = stmt.executeQuery();
             Kysymys muisti = new Kysymys(tulokset.getInt("id"), tulokset.getString("kurssi"), tulokset.getString("aihe"), tulokset.getString("teksti"));
-            while (vastaus.next()) {
-                vastaukset.add(new Vastaus(vastaus.getInt("vastausid"), vastaus.getString("vastausteksti"), vastaus.getBoolean("oikein")));
-            }
+//            while (vastaus.next()) {
+//                vastaukset.add(new Vastaus(vastaus.getInt("vastausid"), vastaus.getString("vastausteksti"), vastaus.getBoolean("oikein")));
+//            }
             HashMap map = new HashMap<>();
             map.put("vastaus", muisti);
             map.put("vastaukset", vastaukset);

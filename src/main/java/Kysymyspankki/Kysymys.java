@@ -18,9 +18,6 @@ public class Kysymys {
     private String kurssi;
     private String aihe;
 
-    public List<Vastaus> getVastaukset() {
-        return vastaukset;
-    }
     private String teksti;
     private List<Vastaus> vastaukset = new ArrayList<>();
 
@@ -51,7 +48,5 @@ public class Kysymys {
     public String getTeksti() {
         return teksti;
     }
-    
-    
     
 }
