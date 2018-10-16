@@ -64,7 +64,6 @@ public class Main {
        Spark.post("/uusi/:id", (req, res) -> {
             // Avataan yhteys tietokantaan
             Connection conn = getConnection();
-            System.out.println(req.queryParams("oikein"));
             
             // Tarkastetaan, että kaikki kentät on täytetty ja tehdään tietokantakysely
             if (req.queryParams("vastausteksti").length() != 0) {
