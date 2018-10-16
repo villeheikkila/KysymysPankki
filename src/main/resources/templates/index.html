@@ -8,8 +8,6 @@
     <body>
         <h1>Kysymykset</h1>
         
-        
-
         <ul style="list-style-type:none" >
             <li th:each="kurssi : ${lista}">
                 <h2>Kurssi:
@@ -17,17 +15,13 @@
                 </h2>
                 <h3>Aihe:
                 <span th:text="${kurssi.aihe}">aihe</span>
-                </h3>
- 
-                
+                </h3>       
                 <a th:href="@{~/kysymykset/{id}(id=${kurssi.id})}" th:text="${kurssi.teksti}">teksi</a>
                 <form th:action="@{~/delete/{id}(id=${kurssi.id})}" method="POST">
                     <input type="submit" value="Poista"/>
                 </form>
-            </li>
-           
+            </li>    
         </ul>
-
 
         <h2>Luo uusi kysymys</h2>
         <form action="/create" method="POST">
@@ -39,17 +33,7 @@
             <input type="text" name="teksti"/> <br />
             <button type="submit">Luo</button>
          </form>
-        
-<!--        <form action="/uusi" method="POST">
-            Vastausteksti: <br />
-            <input type="text" name="vastausteksti"/> <br />
-            id: <br />
-            <input type="text" name="vastausid"/> <br />
-            Oikein: <br />
-            <input type="checkbox" name="active" th:checked="oikein" />
-            <button type="submit">Luo</button>
-         </form>
-        -->
+       
     </body>
 
 </html>

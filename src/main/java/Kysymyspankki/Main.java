@@ -64,12 +64,18 @@ public class Main {
        Spark.post("/uusi/:id", (req, res) -> {
             // Avataan yhteys tietokantaan
             Connection conn = getConnection();
+            System.out.println(req.queryParams("oikein"));
             
             // Tarkastetaan, että kaikki kentät on täytetty ja tehdään tietokantakysely
             if (req.queryParams("vastausteksti").length() != 0) {
                 PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastaus (vastausteksti, oikein, id) VALUES (?, ?, ?)");
-                stmt.setString(1, req.queryParams("vastausteksti"));
-                stmt.setBoolean(2, true);
+                stmt.setString(1, req.queryParams("vastausteksti"));                
+                // Tarkastetaan onko kysymys oikein vai väärin
+                if (req.queryParams("oikein") != null) {
+                    stmt.setBoolean(2, true);
+                } else {
+                    stmt.setBoolean(2, false);
+                }
                 stmt.setInt(3, Integer.parseInt(req.params(":id")));
                 stmt.executeUpdate();
             }
