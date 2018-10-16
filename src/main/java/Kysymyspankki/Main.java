@@ -12,14 +12,12 @@ import spark.Spark;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 public class Main {
-
     public static void main(String[] args) throws Exception {
         // Korjaus, jotta sovellus löytää oikean portin Herokussa
         if (System.getenv("PORT") != null) {
             Spark.port(Integer.valueOf(System.getenv("PORT")));
         }
         
-
         Spark.get("/", (req, res) -> {
             List<Kysymys> kysymykset = new ArrayList<>();
             
@@ -46,6 +44,7 @@ public class Main {
         Spark.post("/create", (req, res) -> {
             // Avataan yhteys tietokantaan
             Connection conn = getConnection();
+            
             // Tarkastetaan, että kaikki kentät on täytetty ja tehdään tietokantakysely
             if ((req.queryParams("kysymys").length() != 0) && (req.queryParams("aihe").length() != 0) && (req.queryParams("teksti").length() != 0)) {
                 PreparedStatement stmt = conn.prepareStatement("INSERT INTO Kysymys (kurssi, aihe, teksti) VALUES (?, ?, ?)");
@@ -54,9 +53,10 @@ public class Main {
                 stmt.setString(3, req.queryParams("teksti"));
                 stmt.executeUpdate();
             }
+            
             // Suljetaan yhteys tietokantaan
             conn.close();
-
+            
             res.redirect("/");
             return "";
         });
@@ -172,5 +172,4 @@ public class Main {
             }
             return DriverManager.getConnection("jdbc:sqlite:kysymykset.db");
         }
-
 }

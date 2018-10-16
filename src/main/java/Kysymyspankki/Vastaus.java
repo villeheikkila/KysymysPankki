@@ -5,10 +5,6 @@
  */
 package Kysymyspankki;
 
-/**
- *
- * @author Ville
- */
 public class Vastaus {
     private int vastausid;
     private String vastausteksti;
@@ -30,8 +26,5 @@ public class Vastaus {
 
     public boolean isOikein() {
         return oikein;
-    }
-    
-    
-    
+    }  
 }

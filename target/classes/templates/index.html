@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="fi-FI" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    
     <head>
         <title>Etusivu</title>
         <meta charset="utf-8" />
     </head>
-
+    
     <body>
-        <h1>Kysymykset</h1>
-        
+        <h1>Kysymykset</h1>        
         <ul style="list-style-type:none" >
             <li th:each="kurssi : ${lista}">
                 <h2>Kurssi:
@@ -22,7 +22,7 @@
                 </form>
             </li>    
         </ul>
-
+        
         <h2>Luo uusi kysymys</h2>
         <b>Kaikki kentät täytyy täyttää, muuten kysymystä ei hyväksytä.</b><br /><br />
         <form action="/create" method="POST">
@@ -34,7 +34,6 @@
             <input type="text" name="teksti"/> <br />
             <button type="submit">Luo</button>
          </form>
-       
+        
     </body>
-
 </html>

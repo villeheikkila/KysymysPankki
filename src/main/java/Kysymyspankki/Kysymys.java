@@ -7,19 +7,12 @@ package Kysymyspankki;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-/**
- *
- * @author Ville
- */
 public class Kysymys {
     private int id;
     private String kurssi;
     private String aihe;
 
     private String teksti;
-    private List<Vastaus> vastaukset = new ArrayList<>();
 
     public Kysymys(int id, String kurssi, String aihe, String teksti) {
         this.id = id;
@@ -27,11 +20,6 @@ public class Kysymys {
         this.aihe = aihe;
         this.teksti = teksti;
     }
-
-    public void setVastaukset(int vastausid, String vastausteksti, boolean oikein) {
-        vastaukset.add(new Vastaus(vastausid, vastausteksti, oikein));
-    }
-    
     
     public int getId() {
         return id;

@@ -5,7 +5,7 @@
         <title>Kysymykset</title>
         <meta charset="utf-8" />
     </head>
-
+    
     <body>
         <h1 th:text="${vastaus[0].aihe}"! /> Kurssi:
         <span th:text="${vastaus[0].kurssi}" />
@@ -15,8 +15,7 @@
                 <span th:text="${vast.vastausteksti}">vastausteksti</span>
                 <b th:text="${vast.oikein} ? 'Oikein!' : 'Väärin!'"></b>
                 <form th:action="@{~/poista/{id}(id=${vast.vastausid})}" method="POST"><input type="submit" value="Poista"/></form>
-            </li>
-           
+            </li>         
         </ul>
         
         <h2>Luo uusi vastausvaihtoehto</h2>
@@ -26,10 +25,8 @@
             Oikein: 
             <input type="checkbox" name="oikein" th:value="1" /><br />
                     <input type="submit" value="Luo"/>
-            </form>
-         
+            </form>        
         <a href="/">Takaisin listaukseen</a>
-
-
+        
     </body>
 </html>
