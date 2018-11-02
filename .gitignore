@@ -8,3 +8,5 @@ target/
 .idea/
 .eclipse
 .settings
+.project
+.classpath
