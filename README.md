@@ -12,3 +12,7 @@
 ## Puutteet:
 
 * Projektissa ei ole käytetty lainkaan CSS:ää, eikä sivun rakennetta ole määritelty tarkkaan, joten sivun ulkoasu on ruma.
+
+## Tietokantakaavio
+
+![Tietokantakaavio](https://github.com/villeheikkila/KysymysPankki/blob/master/other/tietokantakaavio.png)
